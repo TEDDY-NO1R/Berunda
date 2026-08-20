@@ -19,6 +19,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="css/cart.css">
 
     <link rel="icon" href="images/logos/favicon.ico" type="image/x-icon">
 
@@ -138,9 +139,14 @@
                                 </div>
                             </div>
 
-                            <!-- TODO: point this at the real checkout (PayHere link, cart, or order form).
-                                 It is a placeholder and does nothing yet. -->
-                            <a href="#" class="buy-now">Buy Now</a>
+                            <button type="button" class="buy-now" data-cart-add
+                                data-id="product-ladies-tank-top-white"
+                                data-name="Ladies Tank Top — White"
+                                data-price="18"
+                                data-image="images/product/ladies-tank-top-white.jpg"
+                                data-url="product-ladies-tank-top-white.html"
+                                data-size-from="input[name=size]:checked"
+                                data-qty-from="#product-ladies-tank-top-white-qty">Add to Cart</button>
 
                         </form>
 
@@ -219,9 +225,9 @@
                 <div class="col-md-12">
                     <h4>Get Social</h4>
                     <ul>
-                        <li><a href="https://www.facebook.com/TEDDYn01r/" aria-label="Facebook"><i
+                        <li><a href="https://www.facebook.com/berunda.lk/" aria-label="Facebook"><i
                                     class="fa-brands fa-facebook-f"></i></a></li>
-                        <li><a href="https://www.instagram.com/teddy.no1r/" aria-label="Instagram"><i
+                        <li><a href="https://www.instagram.com/berunda.lk/" aria-label="Instagram"><i
                                     class="fa-brands fa-instagram"></i></a></li>
                         <li><a href="https://twitter.com/TNo1r" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
                         </li>
@@ -249,6 +255,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
+
+    <script src="js/cart.js"></script>
 
 </body>
 

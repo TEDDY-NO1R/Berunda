@@ -1,0 +1,367 @@
+@font-face {
+    src: url(fonts/teko-semibold.ttf);
+    font-family: teko;
+}
+
+
+/*------floating button------*/
+
+.cart-fab {
+    position: fixed;
+    right: 26px;
+    bottom: 26px;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    /* White ring, not black: the button sits over the black footer on some
+       pages and over white on others, and this reads against both. */
+    border: 3px solid #fff;
+    background: #111;
+    color: #fff;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1040;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28);
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.cart-fab:hover,
+.cart-fab:focus-visible {
+    background: #fff;
+    color: #111;
+    border-color: #111;
+    transform: translateY(-3px);
+}
+
+.cart-fab:focus-visible {
+    outline: 3px solid #111;
+    outline-offset: 3px;
+}
+
+.cart-fab-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    border-radius: 12px;
+    background: #fff;
+    border: 3px solid #111;
+    color: #111;
+    font-family: Teko;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Visible to screen readers only — the badge itself is a bare number. */
+.cart-sr-count {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/*------overlay + drawer------*/
+
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1045;
+}
+
+.cart-overlay.is-open {
+    opacity: 1;
+}
+
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 380px;
+    max-width: 100vw;
+    background: #fff;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -6px 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.cart-drawer.is-open {
+    transform: translateX(0);
+}
+
+/* Stops the page behind the drawer scrolling away under it. */
+body.cart-locked {
+    overflow: hidden;
+}
+
+.cart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px;
+    border-bottom: 2px solid #eee;
+}
+
+.cart-head h2 {
+    font-family: Teko;
+    font-size: 32px;
+    text-transform: uppercase;
+    margin: 0;
+    color: #111;
+}
+
+.cart-close {
+    border: 0;
+    background: none;
+    font-size: 24px;
+    line-height: 1;
+    color: #111;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.cart-close:focus-visible {
+    outline: 3px solid #111;
+    outline-offset: 2px;
+}
+
+
+/*------lines------*/
+
+.cart-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.cart-line {
+    display: flex;
+    gap: 12px;
+    padding: 16px 22px;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-thumb {
+    width: 72px;
+    height: 72px;
+    flex: 0 0 72px;
+    background: #f2f2f2;
+    overflow: hidden;
+}
+
+.cart-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cart-line-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-line-name {
+    font-family: Teko;
+    font-size: 20px;
+    line-height: 1.2;
+    color: #111;
+    text-decoration: none;
+    display: block;
+}
+
+.cart-line-name:hover {
+    text-decoration: underline;
+    color: #111;
+}
+
+.cart-line-size {
+    font-family: Teko;
+    font-size: 16px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cart-qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-top: 8px;
+    border: 2px solid #111;
+}
+
+.cart-qty button {
+    width: 28px;
+    height: 28px;
+    border: 0;
+    background: #fff;
+    color: #111;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.cart-qty button:hover {
+    background: #111;
+    color: #fff;
+}
+
+.cart-qty span {
+    min-width: 30px;
+    text-align: center;
+    font-family: Teko;
+    font-size: 18px;
+    color: #111;
+}
+
+.cart-line-end {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.cart-line-price {
+    font-family: Teko;
+    font-size: 20px;
+    color: #111;
+    white-space: nowrap;
+}
+
+.cart-remove {
+    border: 0;
+    background: none;
+    padding: 0;
+    font-family: Teko;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #999;
+    cursor: pointer;
+}
+
+.cart-remove:hover {
+    color: #111;
+    text-decoration: underline;
+}
+
+
+/*------empty + footer------*/
+
+.cart-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 30px;
+    text-align: center;
+    font-family: Teko;
+    font-size: 22px;
+    color: #888;
+    line-height: 1.6;
+}
+
+.cart-empty a {
+    color: #111;
+    text-decoration: underline;
+}
+
+.cart-foot {
+    padding: 18px 22px 24px;
+    border-top: 2px solid #eee;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: Teko;
+    font-size: 24px;
+    color: #111;
+    margin-bottom: 14px;
+}
+
+.cart-checkout {
+    display: block;
+    width: 100%;
+    padding: 13px 10px;
+    background: #111;
+    border: 4px solid #111;
+    color: #fff;
+    font-family: Teko;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.cart-checkout:hover,
+.cart-checkout:focus {
+    background: #fff;
+    color: #111;
+    text-decoration: none;
+}
+
+.cart-note {
+    margin: 10px 0 0;
+    text-align: center;
+    font-family: Teko;
+    font-size: 16px;
+    color: #999;
+}
+
+
+/*------responsive------*/
+
+@media screen and (max-width: 480px) {
+    .cart-fab {
+        right: 16px;
+        bottom: 16px;
+        width: 56px;
+        height: 56px;
+        font-size: 20px;
+    }
+
+    .cart-drawer {
+        width: 100%;
+    }
+}
+
+/* Respect a reduced-motion preference: the drawer still opens, it just
+   doesn't slide. */
+@media (prefers-reduced-motion: reduce) {
+
+    .cart-fab,
+    .cart-overlay,
+    .cart-drawer {
+        transition: none;
+    }
+}

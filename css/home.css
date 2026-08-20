@@ -206,9 +206,13 @@ span .fas {
     font-family: Teko;
 }
 
-.testimonial h1 {
+.testimonial h1,
+.testimonial h2 {
     text-align: center;
     padding-top: 20px;
+    /* These were h1s and are now h2s for a sane document outline; the size is
+       pinned so the demotion doesn't shrink them. */
+    font-size: 2.5rem;
 }
 
 .img-area {
