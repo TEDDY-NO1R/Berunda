@@ -1,0 +1,35 @@
+# Stray nested clone (accidental duplicate)
+Berunda/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment & secrets
+.env
+.env.*
+*.local
+
+# Netlify
+.netlify/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node tooling (if added later)
+node_modules/
+dist/
+.cache/
+
+# Local preview config
+.claude/
