@@ -50,12 +50,43 @@
         }, 0);
     }
 
+    /* The label sits midway between the top of the screen and the top of the
+       card. That midpoint depends on how tall the card ends up, which CSS
+       cannot reference, so it is measured here and handed back as a variable.
+       Layout-only: this is read on arm and on resize, never per scroll frame. */
+    function placeTitle() {
+        var pin = stage.querySelector('.focus-pin');
+        var inner = stage.querySelector('.focus-inner');
+        var title = stage.querySelector('.focus-title');
+        var card = stage.querySelector('.owl-item.active .box') || stage.querySelector('.box');
+        if (!pin || !inner || !title || !card) { return; }
+
+        var pinTop = pin.getBoundingClientRect().top;
+        var innerTop = inner.getBoundingClientRect().top - pinTop;
+        var cardTop = card.getBoundingClientRect().top - pinTop;
+        var titleH = title.getBoundingClientRect().height;
+        if (!titleH) { return; }
+
+        /* lift is measured up from the top edge of .focus-inner */
+        var lift = innerTop - (cardTop / 2) - (titleH / 2);
+        stage.style.setProperty('--focus-title-lift', Math.max(0, lift).toFixed(1) + 'px');
+    }
+
+    /* Owl re-measures on a 200ms debounce, so a placement taken the instant the
+       layout changes reads the card at its old size. Run it again once that has
+       settled. Cheap, and only ever on a layout change — never per scroll. */
+    function schedulePlaceTitle() {
+        window.setTimeout(placeTitle, 0);
+        window.setTimeout(placeTitle, 320);
+    }
+
     function arm() {
         if (armed) { return; }
         stage.classList.add('is-armed');
         makeVeil();
         armed = true;
         remeasureCarousels();
+        schedulePlaceTitle();
     }
 
     function disarm() {
@@ -109,6 +140,9 @@
         if (shouldLight !== lit) {
             document.body.classList.toggle('focus-on', shouldLight);
             lit = shouldLight;
+            /* The label is display:none until this flips, so it has no height to
+               measure before now. Place it the moment it becomes visible. */
+            if (shouldLight) { schedulePlaceTitle(); }
         }
     }
 
@@ -116,6 +150,7 @@
         if (phone.matches && !calm.matches) {
             arm();
             update();
+            if (lit) { schedulePlaceTitle(); }
         } else {
             disarm();
         }
