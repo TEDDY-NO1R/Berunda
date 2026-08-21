@@ -784,18 +784,13 @@
     /* Below the navbar (1030) on purpose — leaving the nav reachable is the
        escape hatch of last resort. */
     z-index: 1010;
-    background: rgba(10, 10, 10, 0.82);
+    /* Solid, not a translucent wash: at 55% over a white page this composited
+       to grey rather than reading as black. The element's own opacity is what
+       js/focus-stage.js ramps, so this stays fully opaque. */
+    background: var(--ink);
     opacity: 0;
     pointer-events: none;
     will-change: opacity;
-}
-
-@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-    .focus-veil {
-        background: rgba(10, 10, 10, 0.55);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-    }
 }
 
 @media (max-width: 767px) {
@@ -831,10 +826,6 @@
     /* Card sized against the visible viewport so it always fits whole. The
        title is fixed to the top, so the content reserves room for it rather
        than being centred underneath it. */
-    .focus-stage.is-armed .focus-inner {
-        padding-top: 3.5rem;
-    }
-
     /* Cap the card's WIDTH, not the image's height. Pinning the height would
        override the 3/4 ratio and leave a landscape image on a narrow screen.
        Width = height x 3/4, so 39svh of width yields 52svh of image. */
@@ -848,8 +839,9 @@
         margin-right: auto;
     }
 
+    /* Symmetric, so the card centres on the screen rather than sitting high. */
     .focus-stage.is-armed .product {
-        padding: 20px 12px 28px;
+        padding: 24px 12px 24px;
     }
 
     body.focus-on .focus-title {
@@ -877,11 +869,36 @@
 
     .focus-stage.is-armed .focus-inner {
         width: 100%;
-        /* Longhand: a `padding: 0 x` shorthand here silently resets the
-           top padding that keeps the card clear of the fixed title. */
         padding-left: var(--gutter);
         padding-right: var(--gutter);
         padding-bottom: 0;
+    }
+
+    /* Only the card participates in the centring. The dots and the two hints
+       are lifted out of the flow, otherwise their height drags the card up off
+       the middle of the screen. */
+    .focus-stage.is-armed .owl-theme .owl-dots {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2.4rem;
+        margin-top: 0 !important;
+    }
+
+    .focus-stage.is-armed .swipe-hint,
+    .focus-stage.is-armed .focus-exit {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0;
+    }
+
+    .focus-stage.is-armed .swipe-hint {
+        bottom: 3.1rem;
+    }
+
+    .focus-stage.is-armed .focus-exit {
+        bottom: 1.3rem;
     }
 
     .focus-stage.is-armed .focus-exit {
@@ -918,20 +935,17 @@
 @media (max-width: 767px) and (max-height: 520px) {
 
     .focus-title {
-        padding: 0.55rem var(--gutter);
-        font-size: 1.1rem;
+        padding: 0.35rem var(--gutter);
+        font-size: 0.95rem;
     }
 
-    .focus-stage.is-armed .focus-inner {
-        padding-top: 2.4rem;
-    }
-
+    /* Sized so the centred card still clears the label above it. */
     .focus-stage.is-armed {
-        --focus-card-w: 36svh;
+        --focus-card-w: 32svh;
     }
 
     .focus-stage.is-armed .product {
-        padding: 10px 12px 14px;
+        padding: 12px;
     }
 
     .focus-stage.is-armed .swipe-hint {
