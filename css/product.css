@@ -272,12 +272,6 @@
     border-color: var(--signal);
 }
 
-/* set by cart.js after a successful add */
-.buy-now.is-added {
-    background: var(--paper);
-    color: var(--ink);
-}
-
 
 /*------specs------*/
 

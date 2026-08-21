@@ -55,7 +55,6 @@
     --ink: #0a0a0a;
     --ink-2: #1a1a1a;
     --muted: #6d6d70;
-    --faint: #9c9ca2;
 
     /* one hot accent against an otherwise monochrome brand */
     --signal: #e5322d;
@@ -272,13 +271,11 @@ img {
 }
 
 /* on dark ground */
-.on-dark .btn-line,
 .btn-line.is-invert {
     color: var(--paper);
     border-color: var(--paper);
 }
 
-.on-dark .btn-line:hover,
 .btn-line.is-invert:hover {
     background: var(--paper);
     color: var(--ink);
