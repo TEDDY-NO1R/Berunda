@@ -845,9 +845,12 @@
         margin-right: auto;
     }
 
-    /* Symmetric, so the card centres on the screen rather than sitting high. */
+    /* Even all round, and wide enough for the shadow. The owl stage clips with
+       overflow:hidden on every side, so 12px of side padding against a 14px
+       blur sheared the card's shadow off flat — worse on the right, where
+       owl's fractional item width leaves a little less room. */
     .focus-stage.is-armed .product {
-        padding: 24px 12px 24px;
+        padding: 24px;
     }
 
     body.focus-on .focus-title {
@@ -951,7 +954,7 @@
     }
 
     .focus-stage.is-armed .product {
-        padding: 12px;
+        padding: 12px 24px;
     }
 
     .focus-stage.is-armed .swipe-hint {
