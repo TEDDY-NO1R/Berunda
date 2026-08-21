@@ -766,6 +766,8 @@
     text-transform: uppercase;
     text-align: center;
     color: var(--muted);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease);
 }
 
 /* The veil is created by js/focus-stage.js and only ever added on phones. */
@@ -903,6 +905,13 @@
         margin: 0;
     }
 
+    /* Shown only once the stage is actually running, the same as the label.
+       Before that it would be a stray line of text under the product row. */
+    body.focus-on .focus-stage.is-armed .focus-exit {
+        display: block;
+        opacity: 1;
+    }
+
     /* Anchored below the card, not to the bottom of the screen. .focus-inner
        became the containing block when it was made relative for the label, and
        it is only as tall as the card — so a `bottom` value put these behind it.
@@ -912,18 +921,7 @@
         bottom: auto;
     }
 
-    .focus-stage.is-armed .focus-exit {
-        display: block;
-    }
-
-    /* Only the product row stays legible. The section head and the swipe hint
-       are chrome, so they recede with the rest of the page rather than riding
-       on top of the backdrop. They keep their box, so nothing shifts. */
-    .focus-stage.is-armed .focus-exit {
-        transition: opacity var(--dur) var(--ease), filter var(--dur) var(--ease);
-    }
-
-    /* The one exception: this says how to get out, so it stays readable. */
+    /* Readable on the backdrop: this is what says how to get out. */
     body.focus-on .focus-stage.is-armed .focus-exit {
         color: rgba(255, 255, 255, 0.55);
     }
