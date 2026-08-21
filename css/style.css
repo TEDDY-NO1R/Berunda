@@ -63,8 +63,7 @@
     --line-soft: rgba(10, 10, 10, 0.08);
 
     /* Backdrop behind the featured product. A mid charcoal rather than black,
-       so the white card reads as lit against it. The grain in .focus-veil is
-       what gives it a matt finish. */
+       so the white card reads as lit against it. */
     --matt: #303030;
 
     /* Dark section bands. Kept separate from --bone, which stays a light tint
