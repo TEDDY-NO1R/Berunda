@@ -12,7 +12,7 @@
     'use strict';
 
     var STORE_KEY = 'berunda-cart-v1';
-    var CURRENCY = '$';
+    var CURRENCY = 'Rs ';
 
     /* ---------- state ---------- */
 
@@ -46,8 +46,12 @@
         return items.reduce(function (n, i) { return n + i.price * i.qty; }, 0);
     }
 
+    /* Rupee amounts run to four and five digits, so group the thousands —
+       "Rs 19500" is meaningfully harder to read at a glance than "Rs 19,500". */
     function money(n) {
-        return CURRENCY + n.toFixed(2).replace(/\.00$/, '');
+        var parts = n.toFixed(2).replace(/\.00$/, '').split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return CURRENCY + parts.join('.');
     }
 
     /* A line is identified by product + size, so an M and an L of the same
