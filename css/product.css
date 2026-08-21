@@ -29,7 +29,7 @@
 
 .cat-head {
     background: var(--bone);
-    border-bottom: 2px solid var(--ink);
+    border-bottom: 1px solid var(--line);
     padding: clamp(2rem, 5vw, 3.5rem) 0;
 }
 
@@ -54,7 +54,7 @@
     gap: 1.25rem;
     margin-top: clamp(2.5rem, 5vw, 4rem);
     padding-top: 2rem;
-    border-top: 2px solid var(--ink);
+    border-top: 1px solid var(--line);
 }
 
 .cat-more p {
@@ -92,8 +92,9 @@
     position: relative;
     aspect-ratio: 1 / 1;
     overflow: hidden;
+    border-radius: var(--r-lg);
     background: var(--bone-2);
-    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
 }
 
 .product-media img {
@@ -126,6 +127,7 @@
     text-transform: uppercase;
     color: var(--paper);
     background: var(--signal);
+    border-radius: var(--r-pill);
 }
 
 .product-info h1 {
@@ -206,6 +208,7 @@
     color: var(--ink);
     background: var(--paper);
     border: 2px solid var(--ink);
+    border-radius: var(--r-pill);
     cursor: pointer;
     transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
@@ -237,7 +240,8 @@
     color: var(--ink);
     background: var(--paper);
     border: 2px solid var(--ink);
-    border-radius: 0;
+    border-radius: var(--r-pill);
+    text-align: center;
 }
 
 .qty-row input:focus {
@@ -257,7 +261,7 @@
     color: var(--paper);
     background: var(--ink);
     border: 2px solid var(--ink);
-    border-radius: 0;
+    border-radius: var(--r-pill);
     cursor: pointer;
     transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
@@ -280,7 +284,7 @@
 .product-specs {
     margin-top: 2.5rem;
     padding-top: 1.75rem;
-    border-top: 2px solid var(--ink);
+    border-top: 1px solid var(--line);
 }
 
 .product-specs dl {
@@ -321,6 +325,7 @@
     margin: 1.5rem 0 0;
     padding: 1rem 1.15rem;
     background: var(--bone);
+    border-radius: var(--r);
     font-size: 0.82rem;
     line-height: 1.6;
     color: var(--ink-2);
@@ -345,8 +350,8 @@
 }
 
 .related .rule {
-    height: 2px;
-    background: var(--ink);
+    height: 1px;
+    background: var(--line);
     margin: 1rem 0 2rem;
 }
 
@@ -361,19 +366,19 @@
     flex-direction: column;
     background: var(--paper);
     border: 1px solid var(--line-soft);
-    border-radius: 12px;
+    border-radius: var(--r);
     overflow: hidden;
-    box-shadow: 0 2px 26px rgba(10, 10, 10, 0.11);
+    box-shadow: var(--shadow);
     transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 
 .related-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(10, 10, 10, 0.19);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lift);
 }
 
 .related-card .thumb {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 3 / 4;
     overflow: hidden;
     background: var(--bone-2);
 }

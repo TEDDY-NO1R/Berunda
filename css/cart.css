@@ -22,10 +22,10 @@
     color: var(--paper);
     background: var(--ink);
     border: 2px solid var(--paper);
-    border-radius: 0;
+    border-radius: 50%;
     cursor: pointer;
     z-index: 1040;
-    box-shadow: 5px 5px 0 var(--signal);
+    box-shadow: var(--shadow-lift);
     transition: transform var(--dur) var(--ease), background-color var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 
@@ -34,8 +34,8 @@
     background: var(--signal);
     border-color: var(--paper);
     color: var(--paper);
-    transform: translate(-3px, -3px);
-    box-shadow: 8px 8px 0 var(--ink);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
 }
 
 .cart-fab-badge {
@@ -52,10 +52,10 @@
     font-size: 0.68rem;
     font-weight: 700;
     line-height: 1;
-    color: var(--ink);
-    background: var(--paper);
-    border: 2px solid var(--ink);
-    border-radius: 0;
+    color: var(--paper);
+    background: var(--signal);
+    border: 2px solid var(--paper);
+    border-radius: var(--r-pill);
 }
 
 /* Visible to screen readers only — the badge itself is a bare number. */
@@ -100,7 +100,7 @@
     display: flex;
     flex-direction: column;
     background: var(--paper);
-    border-right: 2px solid var(--ink);
+    border-radius: 0 var(--r-lg) var(--r-lg) 0;
     z-index: 1050;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
@@ -143,7 +143,7 @@ body.cart-locked {
     color: var(--paper);
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.35);
-    border-radius: 0;
+    border-radius: 50%;
     cursor: pointer;
     transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
@@ -177,7 +177,7 @@ body.cart-locked {
     flex: 0 0 74px;
     overflow: hidden;
     background: var(--bone-2);
-    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
 }
 
 .cart-thumb img {
@@ -220,6 +220,8 @@ body.cart-locked {
     align-items: center;
     margin-top: 0.6rem;
     border: 2px solid var(--ink);
+    border-radius: var(--r-pill);
+    overflow: hidden;
 }
 
 .cart-qty button {
@@ -311,7 +313,7 @@ body.cart-locked {
 
 .cart-foot {
     padding: 1.25rem 1.35rem 1.5rem;
-    border-top: 2px solid var(--ink);
+    border-top: 1px solid var(--line);
 }
 
 .cart-total {
@@ -350,7 +352,7 @@ body.cart-locked {
     color: var(--paper);
     background: var(--ink);
     border: 2px solid var(--ink);
-    border-radius: 0;
+    border-radius: var(--r-pill);
     cursor: pointer;
     transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
@@ -385,6 +387,6 @@ body.cart-locked {
 
     .cart-drawer {
         width: 100%;
-        border-right: 0;
+        border-radius: 0;
     }
 }

@@ -22,7 +22,9 @@
 /*------card------*/
 
 .product {
-    padding: 0;
+    /* Clearance for the card's shadow. The owl stage clips with
+       overflow:hidden, so without this the blur gets sliced off. */
+    padding: 24px 12px 36px;
 }
 
 .box {
@@ -31,20 +33,21 @@
     height: 100%;
     background: var(--paper);
     border: 1px solid var(--line-soft);
-    border-radius: 12px;
+    border-radius: var(--r);
     overflow: hidden;
-    box-shadow: 0 2px 26px rgba(10, 10, 10, 0.11);
+    box-shadow: var(--shadow);
     transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 
 .box:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(10, 10, 10, 0.19);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lift);
 }
 
 .slide-img {
     position: relative;
-    aspect-ratio: 1 / 1;
+    /* Upright rectangle, the way the cards read best for apparel. */
+    aspect-ratio: 3 / 4;
     overflow: hidden;
     background: var(--bone-2);
 }
@@ -207,8 +210,8 @@
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: clamp(1rem, 2.5vw, 1.75rem);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: clamp(0.5rem, 1.5vw, 1rem);
 }
 
 @media (max-width: 600px) {
@@ -229,12 +232,8 @@
 
 /*------owl chrome------*/
 
-/* The slider needs breathing room for the card's hover shadow, which would
-   otherwise be clipped by the stage's overflow. */
-.products-carousel .owl-stage-outer {
-    padding: 6px 6px 18px;
-    margin: -6px -6px -18px;
-}
+/* Vertical rhythm is handled by .product's padding, so the stage itself needs
+   no offset hack. */
 
 .owl-carousel .owl-item {
     display: flex;
@@ -261,10 +260,10 @@
 }
 
 .owl-theme .owl-dots .owl-dot span {
-    width: 30px;
-    height: 3px;
+    width: 26px;
+    height: 4px;
     margin: 5px 4px;
-    border-radius: 0;
+    border-radius: var(--r-pill);
     background: var(--line);
     transition: background-color var(--dur) var(--ease);
 }
