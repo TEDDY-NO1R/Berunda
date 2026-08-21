@@ -457,19 +457,10 @@
             <h2>Join the List</h2>
             <p>Drops sell out. Get the word before everyone else does.</p>
 
-            <!-- Netlify Forms. The build bot finds this in the deployed HTML and
-                 collects submissions under the "newsletter" form in the dashboard.
-                 netlify-honeypot traps bots without a captcha. -->
-            <form name="newsletter" method="POST" action="/thank-you.html" data-netlify="true"
-                netlify-honeypot="bot-field">
-
-                <input type="hidden" name="form-name" value="newsletter">
-
-                <p class="hp-field">
-                    <label>Leave this field empty: <input name="bot-field" tabindex="-1"
-                            autocomplete="off"></label>
-                </p>
-
+            <!-- Placeholder signup. Nothing is sent or stored: submitting just
+                 opens the confirmation dialog below. Point the form at a real
+                 provider when there is one to point it at. -->
+            <form id="signup-form" novalidate>
                 <label class="sr-only" for="email">Email address</label>
                 <input name="email" type="email" id="email" placeholder="your@email.com" required>
                 <button type="submit">Subscribe</button>
@@ -480,6 +471,32 @@
     </section>
 
     <!-- end of newsletter -->
+
+    <!-- signup confirmation -->
+
+    <div class="modal-backdrop-x" id="signup-modal" role="dialog" aria-modal="true"
+        aria-labelledby="signup-modal-title" hidden>
+
+        <div class="modal-card">
+
+            <button type="button" class="modal-close" aria-label="Close">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+
+            <i class="fa-solid fa-envelope-circle-check modal-icon" aria-hidden="true"></i>
+
+            <h2 id="signup-modal-title">Thank You</h2>
+
+            <p>Thanks for reaching out &mdash; you're on the list. We'll be in touch about drops,
+                restocks and releases.</p>
+
+            <button type="button" class="btn modal-ok">Nice One</button>
+
+        </div>
+
+    </div>
+
+    <!-- end of signup confirmation -->
 
     <footer>
 
@@ -546,6 +563,7 @@
         crossorigin="anonymous"></script>
 
     <script src="js/lookbook.js"></script>
+    <script src="js/signup.js"></script>
     <script src="js/cart.js"></script>
 
 </body>

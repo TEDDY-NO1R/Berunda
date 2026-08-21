@@ -88,17 +88,6 @@
     100% { clip-path: inset(37% 0 49% 0); }
 }
 
-/* Confirmation page reuses this dark hero, minus the glitch. */
-.ty-mark {
-    margin: 0;
-    font-family: var(--display);
-    font-size: clamp(3rem, 12vw, 7rem);
-    font-weight: 700;
-    line-height: 0.9;
-    letter-spacing: 0.02em;
-    color: var(--paper);
-}
-
 .nf-lead {
     max-width: 44ch;
     margin: 2rem auto 0;

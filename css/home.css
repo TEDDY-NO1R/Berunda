@@ -622,20 +622,6 @@
     color: var(--paper);
 }
 
-/* Honeypot: hidden from people, still in the DOM for bots to fill in.
-   display:none would keep some bots away from it, which defeats the point. */
-.hp-field {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
 .signup .fineprint {
     margin: 1.5rem 0 0;
     font-family: var(--mono);
@@ -658,4 +644,98 @@
     .signup button {
         border-radius: var(--r-pill);
     }
+}
+
+
+/*------signup confirmation dialog------*/
+
+/* Named modal-backdrop-x rather than Bootstrap's .modal-backdrop, which is
+   styled by Bootstrap's own CSS and would fight this. */
+
+.modal-backdrop-x {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1090;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--gutter);
+    background: rgba(10, 10, 10, 0.72);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+}
+
+.modal-backdrop-x[hidden] {
+    display: none;
+}
+
+.modal-backdrop-x.is-open {
+    opacity: 1;
+}
+
+.modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    padding: clamp(2.25rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+    background: var(--paper);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(14px) scale(0.97);
+    transition: transform 0.3s var(--ease);
+}
+
+.modal-backdrop-x.is-open .modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: var(--muted);
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.modal-close:hover {
+    background: var(--bone);
+    color: var(--ink);
+}
+
+.modal-icon {
+    font-size: 2.4rem;
+    color: var(--signal);
+}
+
+.modal-card h2 {
+    margin: 1.1rem 0 0;
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.modal-card p {
+    margin: 0.75rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+.modal-card .modal-ok {
+    margin-top: 1.75rem;
+    width: 100%;
 }
