@@ -896,7 +896,6 @@
         margin-top: 0 !important;
     }
 
-    .focus-stage.is-armed .swipe-hint,
     .focus-stage.is-armed .focus-exit {
         position: absolute;
         left: 0;
@@ -908,11 +907,6 @@
        became the containing block when it was made relative for the label, and
        it is only as tall as the card — so a `bottom` value put these behind it.
        Measuring down from its bottom edge keeps them under the dots. */
-    .focus-stage.is-armed .swipe-hint {
-        top: calc(100% + 2.9rem);
-        bottom: auto;
-    }
-
     .focus-stage.is-armed .focus-exit {
         top: calc(100% + 4.2rem);
         bottom: auto;
@@ -925,14 +919,8 @@
     /* Only the product row stays legible. The section head and the swipe hint
        are chrome, so they recede with the rest of the page rather than riding
        on top of the backdrop. They keep their box, so nothing shifts. */
-    .focus-stage.is-armed .swipe-hint,
     .focus-stage.is-armed .focus-exit {
         transition: opacity var(--dur) var(--ease), filter var(--dur) var(--ease);
-    }
-
-    body.focus-on .focus-stage.is-armed .swipe-hint {
-        opacity: 0.16;
-        filter: blur(3px);
     }
 
     /* The one exception: this says how to get out, so it stays readable. */
@@ -955,10 +943,6 @@
         font-size: 1.3rem;
     }
 
-    .focus-stage.is-armed .swipe-hint {
-        top: calc(100% + 2.2rem);
-    }
-
     .focus-stage.is-armed .focus-exit {
         top: calc(100% + 3.4rem);
     }
@@ -970,10 +954,6 @@
 
     .focus-stage.is-armed .product {
         padding: 12px 24px;
-    }
-
-    .focus-stage.is-armed .swipe-hint {
-        display: none;
     }
 
     .focus-stage.is-armed .owl-theme .owl-dots {

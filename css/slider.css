@@ -273,25 +273,3 @@
     background: var(--signal);
 }
 
-/* Hint that the row scrolls — mobile shows one card at a time by design. */
-.swipe-hint {
-    display: none;
-    margin: 1rem 0 0;
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-align: center;
-}
-
-.swipe-hint i {
-    color: var(--signal);
-}
-
-@media (max-width: 600px) {
-    .swipe-hint {
-        display: block;
-    }
-}
