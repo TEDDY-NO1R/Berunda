@@ -719,3 +719,103 @@
     margin-top: 1.75rem;
     width: 100%;
 }
+
+
+/*------focus stage (phones)------*/
+
+/* Pins the featured row to the middle of the screen and dims the page behind
+   it. Built as a tall section with a sticky child rather than a scroll lock:
+   scrolling stays native the whole way through, so the user can always leave
+   by carrying on in either direction. Nothing here calls preventDefault. */
+
+.focus-exit {
+    display: none;
+    margin: 1.25rem 0 0;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--muted);
+}
+
+/* The veil is created by js/focus-stage.js and only ever added on phones. */
+.focus-veil {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* Below the navbar (1030) on purpose — leaving the nav reachable is the
+       escape hatch of last resort. */
+    z-index: 1010;
+    background: rgba(10, 10, 10, 0.82);
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .focus-veil {
+        background: rgba(10, 10, 10, 0.55);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+@media (max-width: 767px) {
+
+    .focus-stage.is-armed {
+        /* Extra height is the runway that keeps the row pinned. Overshooting
+           it in either direction is what releases the page. */
+        height: 240vh;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .focus-stage.is-armed .focus-pin {
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        min-height: 100vh;
+        z-index: 1015;
+    }
+
+    .focus-stage.is-armed .focus-inner {
+        width: 100%;
+        padding: 0 var(--gutter);
+    }
+
+    .focus-stage.is-armed .focus-exit {
+        display: block;
+    }
+
+    /* Section head and price text sit on the dark veil once pinned. */
+    body.focus-on .focus-stage.is-armed .sec-head h2,
+    body.focus-on .focus-stage.is-armed .sec-link {
+        color: var(--paper);
+    }
+
+    body.focus-on .focus-stage.is-armed .sec-head {
+        border-bottom-color: rgba(255, 255, 255, 0.25);
+    }
+
+    body.focus-on .focus-stage.is-armed .sec-link {
+        border-bottom-color: rgba(255, 255, 255, 0.4);
+    }
+
+    body.focus-on .focus-stage.is-armed .swipe-hint,
+    body.focus-on .focus-stage.is-armed .focus-exit {
+        color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* The effect is decorative. If motion is unwelcome, leave the section as a
+   plain block — js/focus-stage.js never arms it. */
+@media (prefers-reduced-motion: reduce) {
+    .focus-stage {
+        height: auto !important;
+    }
+}

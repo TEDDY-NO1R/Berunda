@@ -224,7 +224,14 @@
 
     <!-- featured products -->
 
-    <section class="products">
+    <!-- On phones this becomes a focus stage: the inner block pins to the middle
+         of the screen while the rest of the page dims behind it, so the product
+         row has the screen to itself. It is a tall section with a sticky child,
+         not a scroll lock — the page never stops responding to a swipe, so
+         nobody can get stuck in here. -->
+    <section class="products focus-stage" id="featured">
+      <div class="focus-pin">
+        <div class="focus-inner">
 
         <div class="sec-head">
             <span class="sec-num">01</span>
@@ -298,6 +305,10 @@
 
         <p class="swipe-hint"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i> Swipe for more</p>
 
+        <p class="focus-exit" aria-hidden="true">Keep scrolling to carry on</p>
+
+        </div>
+      </div>
     </section>
 
     <!-- end of featured products -->
@@ -580,6 +591,7 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 
+    <script src="js/focus-stage.js"></script>
     <script src="js/lookbook.js"></script>
     <script src="js/signup.js"></script>
     <script src="js/cart.js"></script>
