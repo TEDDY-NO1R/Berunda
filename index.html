@@ -566,9 +566,13 @@
             autoplayHoverPause: true,
             dots: true,
             responsive: {
-                0: { items: 1 },
-                600: { items: 2 },
-                1000: { items: 3 }
+                // No margin on phones. One card shows at a time, so the gap buys
+                // nothing, and it makes the slide step exactly the slot width —
+                // there is no leftover margin for a swipe to settle against and
+                // knock the card off centre.
+                0: { items: 1, margin: 0 },
+                600: { items: 2, margin: 20 },
+                1000: { items: 3, margin: 20 }
             }
         });
 

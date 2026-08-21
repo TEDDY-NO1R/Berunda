@@ -786,8 +786,14 @@
     z-index: 1010;
     /* Solid, not a translucent wash: at 55% over a white page this composited
        to grey rather than reading as black. The element's own opacity is what
-       js/focus-stage.js ramps, so this stays fully opaque. */
-    background: var(--ink);
+       js/focus-stage.js ramps, so this stays fully opaque.
+
+       Matt rather than flat black: a hair off pure black, with a fine grain on
+       top. A dead-flat fill reads as a hole in the page; the grain gives it a
+       surface. The noise is an inline SVG, so it costs no extra request. */
+    background-color: var(--matt);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    background-repeat: repeat;
     opacity: 0;
     pointer-events: none;
     will-change: opacity;
