@@ -80,7 +80,7 @@
 
 .props-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .prop {
@@ -114,7 +114,23 @@
     color: var(--muted);
 }
 
-@media (max-width: 767px) {
+/* Four across becomes two-by-two, then a single column. The dividers have to
+   follow the wrap, or stray lines appear at the start of a row. */
+@media (max-width: 991px) {
+    .props-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prop:nth-child(odd) {
+        border-left: 0;
+    }
+
+    .prop:nth-child(n+3) {
+        border-top: 1px solid var(--line);
+    }
+}
+
+@media (max-width: 575px) {
     .props-grid {
         grid-template-columns: 1fr;
     }
