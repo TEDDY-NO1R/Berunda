@@ -62,10 +62,10 @@
     --line: rgba(10, 10, 10, 0.14);
     --line-soft: rgba(10, 10, 10, 0.08);
 
-    /* Matt black: lifted a touch off pure black and very slightly cool, so it
-       reads as a surface rather than a hole. The grain in .focus-veil is what
-       actually sells the matt finish. */
-    --matt: #141417;
+    /* Backdrop behind the featured product. A mid charcoal rather than black,
+       so the white card reads as lit against it. The grain in .focus-veil is
+       what gives it a matt finish. */
+    --matt: #303030;
 
     /* Dark section bands. Kept separate from --bone, which stays a light tint
        for small surfaces like the modal close hover. */
