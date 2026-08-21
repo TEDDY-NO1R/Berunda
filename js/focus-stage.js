@@ -37,11 +37,25 @@
         document.body.appendChild(veil);
     }
 
+    /* Arming changes the padding inside the stage, which narrows the carousel.
+       Owl measures its item widths once and caches them, so without a nudge it
+       keeps sizing slides to the old, wider container: each slide then settles
+       wider than the visible slot and the card is pushed off and clipped.
+       Owl's resize handler compares the carousel's own width, so a plain
+       resize event is enough to make it re-measure — no owl API needed here.
+       Only fired when the armed state actually flips, so it cannot loop. */
+    function remeasureCarousels() {
+        window.setTimeout(function () {
+            window.dispatchEvent(new Event('resize'));
+        }, 0);
+    }
+
     function arm() {
         if (armed) { return; }
         stage.classList.add('is-armed');
         makeVeil();
         armed = true;
+        remeasureCarousels();
     }
 
     function disarm() {
@@ -49,6 +63,7 @@
         stage.classList.remove('is-armed');
         armed = false;
         douse();
+        remeasureCarousels();
     }
 
     function douse() {
