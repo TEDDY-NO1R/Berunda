@@ -792,23 +792,29 @@
         display: block;
     }
 
-    /* Section head and price text sit on the dark veil once pinned. */
-    body.focus-on .focus-stage.is-armed .sec-head h2,
-    body.focus-on .focus-stage.is-armed .sec-link {
-        color: var(--paper);
+    /* Only the product row stays legible. The section head and the swipe hint
+       are chrome, so they recede with the rest of the page rather than riding
+       on top of the backdrop. They keep their box, so nothing shifts. */
+    .focus-stage.is-armed .sec-head,
+    .focus-stage.is-armed .swipe-hint,
+    .focus-stage.is-armed .focus-exit {
+        transition: opacity var(--dur) var(--ease), filter var(--dur) var(--ease);
     }
 
-    body.focus-on .focus-stage.is-armed .sec-head {
-        border-bottom-color: rgba(255, 255, 255, 0.25);
+    body.focus-on .focus-stage.is-armed .sec-head,
+    body.focus-on .focus-stage.is-armed .swipe-hint {
+        opacity: 0.16;
+        filter: blur(3px);
     }
 
-    body.focus-on .focus-stage.is-armed .sec-link {
-        border-bottom-color: rgba(255, 255, 255, 0.4);
-    }
-
-    body.focus-on .focus-stage.is-armed .swipe-hint,
+    /* The one exception: this says how to get out, so it stays readable. */
     body.focus-on .focus-stage.is-armed .focus-exit {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    body.focus-on .focus-stage.is-armed .products-carousel {
+        opacity: 1;
+        filter: none;
     }
 }
 
