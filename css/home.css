@@ -74,8 +74,9 @@
 /*------value props------*/
 
 .props {
-    background: var(--bone);
-    border-bottom: 1px solid var(--line);
+    background: var(--band);
+    color: var(--band-ink);
+    border-bottom: 0;
 }
 
 .props-grid {
@@ -85,7 +86,7 @@
 
 .prop {
     padding: clamp(2rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2.5rem);
-    border-left: 1px solid var(--line);
+    border-left: 1px solid var(--band-line);
     text-align: left;
 }
 
@@ -99,6 +100,7 @@
 }
 
 .prop h3 {
+    color: var(--band-ink);
     margin: 1.1rem 0 0.6rem;
     font-family: var(--mono);
     font-size: 0.72rem;
@@ -111,7 +113,7 @@
     margin: 0;
     font-size: 0.88rem;
     line-height: 1.7;
-    color: var(--muted);
+    color: var(--band-muted);
 }
 
 /* Four across becomes two-by-two, then a single column. The dividers have to
@@ -126,7 +128,7 @@
     }
 
     .prop:nth-child(n+3) {
-        border-top: 1px solid var(--line);
+        border-top: 1px solid var(--band-line);
     }
 }
 
@@ -137,7 +139,7 @@
 
     .prop {
         border-left: 0;
-        border-top: 1px solid var(--line);
+        border-top: 1px solid var(--band-line);
     }
 
     .prop:first-child {
@@ -436,7 +438,16 @@
 /*------testimonials------*/
 
 .reviews {
-    background: var(--bone);
+    background: var(--band);
+}
+
+/* The white cards carry the content, so only the section head needs flipping. */
+.reviews .sec-head {
+    border-bottom-color: var(--band-line);
+}
+
+.reviews .sec-head h2 {
+    color: var(--band-ink);
 }
 
 .testi {
@@ -530,6 +541,7 @@
 
 .signup {
     background: var(--ink);
+    border-top: 1px solid var(--band-line);
     color: var(--paper);
     text-align: center;
     padding: clamp(3.5rem, 8vw, 6rem) 0;

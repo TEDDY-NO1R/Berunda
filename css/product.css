@@ -28,8 +28,9 @@
 /*------category page header------*/
 
 .cat-head {
-    background: var(--bone);
-    border-bottom: 1px solid var(--line);
+    background: var(--band);
+    color: var(--band-ink);
+    border-bottom: 0;
     padding: clamp(2rem, 5vw, 3.5rem) 0;
 }
 
@@ -37,13 +38,27 @@
     margin: 1rem 0 0;
     font-size: clamp(2.8rem, 9vw, 6rem);
     font-weight: 700;
+    color: var(--band-ink);
 }
 
 .cat-head p {
     max-width: 46ch;
     margin: 0.75rem 0 0;
     font-size: 0.92rem;
-    color: var(--muted);
+    color: var(--band-muted);
+}
+
+/* Breadcrumbs sit on the band here, so they need the light treatment. */
+.cat-head .crumbs {
+    color: var(--band-muted);
+}
+
+.cat-head .crumbs a:hover {
+    color: var(--paper);
+}
+
+.cat-head .crumbs .sep {
+    color: var(--band-line);
 }
 
 .cat-more {
