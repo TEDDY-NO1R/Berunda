@@ -823,9 +823,17 @@
         padding-top: 3.5rem;
     }
 
-    .focus-stage.is-armed .slide-img {
-        aspect-ratio: auto;
-        height: min(46svh, 340px);
+    /* Cap the card's WIDTH, not the image's height. Pinning the height would
+       override the 3/4 ratio and leave a landscape image on a narrow screen.
+       Width = height x 3/4, so 39svh of width yields 52svh of image. */
+    .focus-stage.is-armed {
+        --focus-card-w: 39svh;
+    }
+
+    .focus-stage.is-armed .box {
+        max-width: min(100%, var(--focus-card-w));
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .focus-stage.is-armed .product {
@@ -857,7 +865,11 @@
 
     .focus-stage.is-armed .focus-inner {
         width: 100%;
-        padding: 0 var(--gutter);
+        /* Longhand: a `padding: 0 x` shorthand here silently resets the
+           top padding that keeps the card clear of the fixed title. */
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
+        padding-bottom: 0;
     }
 
     .focus-stage.is-armed .focus-exit {
@@ -902,8 +914,8 @@
         padding-top: 2.4rem;
     }
 
-    .focus-stage.is-armed .slide-img {
-        height: min(38svh, 180px);
+    .focus-stage.is-armed {
+        --focus-card-w: 36svh;
     }
 
     .focus-stage.is-armed .product {
