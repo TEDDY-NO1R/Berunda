@@ -178,23 +178,49 @@ span .fas {
 
 /*------parallax------*/
 
+/* Served from the repo, not a third-party CDN: a hotlinked image can be
+   moved, blocked or changed by its host at any time, which would break this
+   band on the live site. */
 .parallax {
-    background: url('https://cdn.onlyinyourstate.com/wp-content/uploads/2017/01/15123902824_07d19b0463_k.jpg') no-repeat center;
+    background: url('../images/parallax.jpg') no-repeat center;
     background-size: cover;
     background-attachment: fixed;
     height: 300px;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Keeps the caption readable over a busy photo. */
+.parallax::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .parallax-text {
-    top: 45%;
+    position: relative;
+    z-index: 1;
     width: 100%;
+    padding: 0 20px;
     text-align: center;
     font-size: 25px;
     text-transform: uppercase;
-    position: absolute;
     color: rgb(0, 0, 0);
     font-family: Teko;
+}
+
+/* Most mobile browsers don't support fixed attachment and render it as a
+   jittery, badly-cropped image. */
+@media screen and (max-width: 991px) {
+    .parallax {
+        background-attachment: scroll;
+    }
 }
 
 
