@@ -797,6 +797,10 @@
         height: 240vh;
         padding-top: 0;
         padding-bottom: 0;
+        /* Caps the card's WIDTH, not the image's height. Pinning the height
+           would override the 3/4 ratio and leave a landscape image on a narrow
+           screen; width is three quarters of height. */
+        --focus-card-w: 37svh;
     }
 
     .focus-stage.is-armed .focus-pin {
@@ -805,28 +809,28 @@
         display: flex;
         align-items: center;
         /* svh is the viewport with the browser chrome showing. Plain vh
-           measures the taller chrome-hidden viewport, so on a phone the
-           content runs past the bottom of what is actually on screen and the
-           card gets cut off. */
+           measures the taller chrome-hidden viewport, so on a phone the content
+           runs past the bottom of what is actually on screen and the card gets
+           cut off. The vh line is the fallback for older browsers. */
         min-height: 100vh;
         min-height: 100svh;
         z-index: 1015;
     }
 
-    /* The section head is replaced by the fixed title while pinned, which also
-       buys back the vertical space the card needs. */
+    /* The label stands in for this while pinned, which also buys back the
+       vertical space the card needs. */
     .focus-stage.is-armed .sec-head {
         display: none;
     }
 
-    /* Card sized against the visible viewport so it always fits whole. The
-       title is fixed to the top, so the content reserves room for it rather
-       than being centred underneath it. */
-    /* Cap the card's WIDTH, not the image's height. Pinning the height would
-       override the 3/4 ratio and leave a landscape image on a narrow screen.
-       Width = height x 3/4, so 39svh of width yields 52svh of image. */
-    .focus-stage.is-armed {
-        --focus-card-w: 37svh;
+    /* Positioned, so the label can be anchored to the card rather than to the
+       top of the screen. */
+    .focus-stage.is-armed .focus-inner {
+        position: relative;
+        width: 100%;
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
+        padding-bottom: 0;
     }
 
     .focus-stage.is-armed .box {
@@ -837,18 +841,36 @@
 
     /* Even all round, and wide enough for the shadow. The owl stage clips with
        overflow:hidden on every side, so 12px of side padding against a 14px
-       blur sheared the card's shadow off flat — worse on the right, where
-       owl's fractional item width leaves a little less room. */
+       blur sheared the card's shadow off flat. */
     .focus-stage.is-armed .product {
         padding: 24px;
     }
 
-    /* Anchored to the top of the card rather than the top of the screen, so
-       the two stay a fixed distance apart whatever the screen height. */
-    .focus-stage.is-armed .focus-inner {
-        position: relative;
+    /* Only the card participates in the centring. The dots and the exit cue are
+       lifted out of the flow, otherwise their height drags the card up off the
+       middle of the screen. */
+    .focus-stage.is-armed .owl-theme .owl-dots {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2.4rem;
+        margin-top: 0 !important;
     }
 
+    /* Measured down from .focus-inner's bottom edge: it is the containing block
+       and only as tall as the card, so a `bottom` value would put this behind
+       the card instead of below it. */
+    .focus-stage.is-armed .focus-exit {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(100% + 4.2rem);
+        bottom: auto;
+        margin: 0;
+    }
+
+    /* Label and exit cue appear only once the stage is actually running, and
+       both read light against the backdrop. */
     body.focus-on .focus-title {
         display: block;
         opacity: 1;
@@ -860,6 +882,12 @@
            fallback keeps it just above the card if the script has not run. */
         bottom: calc(100% + var(--focus-title-lift, 0.35rem));
         font-size: 2.1rem;
+    }
+
+    body.focus-on .focus-stage.is-armed .focus-exit {
+        display: block;
+        opacity: 1;
+        color: rgba(255, 255, 255, 0.55);
     }
 
     /* Navbar and cart button step aside so only the product is on screen. */
@@ -879,57 +907,7 @@
     .cart-fab {
         transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
     }
-
-    .focus-stage.is-armed .focus-inner {
-        width: 100%;
-        padding-left: var(--gutter);
-        padding-right: var(--gutter);
-        padding-bottom: 0;
-    }
-
-    /* Only the card participates in the centring. The dots and the two hints
-       are lifted out of the flow, otherwise their height drags the card up off
-       the middle of the screen. */
-    .focus-stage.is-armed .owl-theme .owl-dots {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -2.4rem;
-        margin-top: 0 !important;
-    }
-
-    .focus-stage.is-armed .focus-exit {
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: 0;
-    }
-
-    /* Shown only once the stage is actually running, the same as the label.
-       Before that it would be a stray line of text under the product row. */
-    body.focus-on .focus-stage.is-armed .focus-exit {
-        display: block;
-        opacity: 1;
-    }
-
-    /* Anchored below the card, not to the bottom of the screen. .focus-inner
-       became the containing block when it was made relative for the label, and
-       it is only as tall as the card — so a `bottom` value put these behind it.
-       Measuring down from its bottom edge keeps them under the dots. */
-    .focus-stage.is-armed .focus-exit {
-        top: calc(100% + 4.2rem);
-        bottom: auto;
-    }
-
-    /* Readable on the backdrop: this is what says how to get out. */
-    body.focus-on .focus-stage.is-armed .focus-exit {
-        color: rgba(255, 255, 255, 0.55);
-    }
-
-    body.focus-on .focus-stage.is-armed .products-carousel {
-        opacity: 1;
-        filter: none;
-    }
+}
 }
 
 /* A phone on its side is still under 767px wide, so the stage arms with barely

@@ -31,6 +31,7 @@ Colours, spacing, radii, shadows and easing all come from custom properties in
 | File | What it does |
 | --- | --- |
 | `js/cart.js` | Cart drawer, persisted to localStorage |
+| `js/focus-stage.js` | Pins the featured row on phones (see below) |
 | `js/lookbook.js` | Lightbox for the lookbook grid |
 | `js/signup.js` | Newsletter signup |
 | `js/owl.carousel.js` + `js/jquery.min.js` | Vendor, drives the sliders |
@@ -45,6 +46,15 @@ Colours, spacing, radii, shadows and easing all come from custom properties in
 - **The owl slider is deliberate, and only on the home page.** It shows one
   product at a time on a phone, which is the point of it. Category pages use a
   plain grid so shoppers can see everything at once.
+
+- **The focus stage is not a scroll lock.** On phones the featured row pins to
+  the middle of the screen with the page dimmed behind it. It is a tall section
+  with a sticky child, so scrolling stays native throughout — nothing calls
+  `preventDefault`, so a script error cannot strand anyone inside it. Two
+  things it has to do by hand: nudge owl to re-measure when the stage arms
+  (owl caches item widths, and arming changes the container, which otherwise
+  leaves slides wider than their slot and clips the card), and measure where
+  the label sits, since its position depends on the card height.
 
 - **Card shadows need clearance.** The owl stage clips with `overflow: hidden`,
   so `.product` and `.testi` carry padding sized against the hover shadow. Grow
