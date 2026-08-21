@@ -1,304 +1,617 @@
-@font-face {
-    src: url(fonts/teko-semibold.ttf);
-    font-family: teko;
+/* ==========================================================================
+   BERUNDA — home page
+   Depends on style.css for tokens.
+   ========================================================================== */
+
+
+/*------hero------*/
+
+.hero {
+    position: relative;
+    background: var(--ink);
 }
 
-
-/*------carousel------*/
-
-/* Slides are 3290x1274 (2.58:1) with brand text burned into the left and right
-   edges, so any crop slices that text. The item therefore keeps the native
-   ratio wherever the resulting height is still usable -- 297px at 768px wide,
-   496px at 1280 -- and only crops on phones, where scaling by width alone
-   would collapse the hero to a ~145px sliver. */
-
-.carousel-item {
-    aspect-ratio: 2.58 / 1;
-    max-height: 80vh;
+.hero .carousel-item {
+    position: relative;
 }
 
-.carousel-item img {
+.hero .carousel-item img {
     width: 100%;
-    height: 100%;
+    height: clamp(420px, 74vh, 780px);
     object-fit: cover;
     object-position: center;
 }
 
-/* Phones: square. Tall enough to read as a hero, and tight enough that the
-   edge text falls outside the frame rather than being sliced in half. */
-@media only screen and (max-width: 575px) {
-    .carousel-item {
-        aspect-ratio: 1 / 1;
-    }
-}
+/* No overlay text and no scrim: the slide artwork carries its own headline and
+   logo, so anything laid on top collides with it. */
 
-/* Controls get small and easy to miss over a cropped image on touch. */
-@media only screen and (max-width: 767px) {
-
-    .carousel-control-prev,
-    .carousel-control-next {
-        width: 15%;
-    }
-
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-.btn {
-    display: inline-block;
-    width: 200px;
-    font-weight: bold;
-    padding: 10px;
-    color: rgb(0, 0, 0);
-    border: 4px solid rgb(0, 0, 0);
-    text-align: center;
-    outline: none;
-    text-decoration: none;
-}
-
-.btn:hover,
-.btn:active {
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    border: 4px solid rgb(255, 255, 255);
-}
-
-span .fas {
-    font-size: 40px;
-}
-
-
-/*------marketing------*/
-
-.marketing .col-lg-4 {
-    margin-top: 5rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-family: Teko;
-}
-
-.marketing .col-lg-4 p {
-    margin-right: .75rem;
-    margin-left: .75rem;
-}
-
-
-/*------collections------*/
-
-.collections {
-    width: 100%;
-    display: flex;
+.hero .carousel-indicators {
+    z-index: 4;
+    bottom: 1.25rem;
+    margin: 0;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
-.image {
-    position: relative;
-    flex: 1;
-    max-width: 460px;
-    height: 300px;
-    margin: 20px;
-    overflow: hidden;
-    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.300);
-}
-
-.image img {
-    opacity: 0.8;
-    position: relative;
-    vertical-align: top;
-    transition: 0.6s;
-    transition-property: opacity;
-}
-
-.image:hover img {
+.hero .carousel-indicators li {
+    width: 40px;
+    height: 3px;
+    margin: 0 4px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 0;
     opacity: 1;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    transition: background-color var(--dur) var(--ease);
 }
 
-.image .details {
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: rgb(0, 0, 0);
+.hero .carousel-indicators li.active {
+    background: var(--signal);
+}
+
+.hero .carousel-control-prev,
+.hero .carousel-control-next {
+    z-index: 4;
+    width: 7%;
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease);
+}
+
+.hero:hover .carousel-control-prev,
+.hero:hover .carousel-control-next {
+    opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+    /* The banners are wide crops with their own type near the middle, so on a
+       narrow screen show more of the frame rather than cropping the words out. */
+    .hero .carousel-item img {
+        height: clamp(230px, 46vw, 340px);
+        object-fit: contain;
+        background: var(--ink);
+    }
+}
+
+
+/*------value props------*/
+
+.props {
+    background: var(--bone);
+    border-bottom: 2px solid var(--ink);
+}
+
+.props-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.prop {
+    padding: clamp(2rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2.5rem);
+    border-left: 1px solid var(--line);
+    text-align: left;
+}
+
+.prop:first-child {
+    border-left: 0;
+}
+
+.prop i {
+    font-size: 1.25rem;
+    color: var(--signal);
+}
+
+.prop h3 {
+    margin: 1.1rem 0 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.prop p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+@media (max-width: 767px) {
+    .props-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prop {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+    }
+
+    .prop:first-child {
+        border-top: 0;
+    }
+}
+
+
+/*------category split------*/
+
+.cats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--ink);
+}
+
+.cat {
+    position: relative;
+    display: block;
+    height: clamp(360px, 52vw, 620px);
+    overflow: hidden;
+    background: var(--ink-2);
+}
+
+.cat img {
     width: 100%;
     height: 100%;
-    font-family: Teko;
+    object-fit: cover;
+    opacity: 0.72;
+    transition: transform 1s var(--ease), opacity var(--dur) var(--ease);
 }
 
-.image .details h2 {
-    text-align: center;
-    font-size: 35px;
-    text-transform: uppercase;
-    font-weight: 300;
-    margin-top: 120px;
-    transition: 0.4s;
-    transition-property: transform;
-    font-weight: 900;
+.cat:hover img {
+    transform: scale(1.07);
+    opacity: 0.85;
 }
 
-.image .details p {
-    margin: 30px 30px 0 30px;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    opacity: 0;
-    transition: 0.6s;
-    transition-property: opacity, transform;
+.cat-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0) 0%, rgba(10, 10, 10, 0.8) 100%);
+    color: var(--paper);
 }
 
-.image:hover .details p {
-    opacity: 1;
-    transform: translateY(-40px);
+.cat-body h3 {
+    margin: 0;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--paper);
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .image {
-        flex: 100%;
-        width: 90%;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    .image {
-        flex: 100%;
-        width: 90%;
-    }
-}
-
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-    .image {
-        flex: 100%;
-        width: 90%;
-    }
-}
-
-
-/*------parallax------*/
-
-/* Served from the repo, not a third-party CDN: a hotlinked image can be
-   moved, blocked or changed by its host at any time, which would break this
-   band on the live site. */
-.parallax {
-    background: url('../images/parallax.jpg') no-repeat center;
-    background-size: cover;
-    background-attachment: fixed;
-    height: 300px;
-    position: relative;
-    display: flex;
+.cat-body .cat-go {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper);
 }
 
-/* Keeps the caption readable over a busy photo. */
-.parallax::after {
+.cat-body .cat-go i {
+    transition: transform var(--dur) var(--ease);
+}
+
+.cat:hover .cat-body .cat-go {
+    color: var(--signal);
+}
+
+.cat:hover .cat-body .cat-go i {
+    transform: translateX(6px);
+}
+
+@media (max-width: 767px) {
+    .cats {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/*------lookbook------*/
+
+/* Replaces the old standalone gallery page. Source images are square, so the
+   mosaic is built from square cells with one feature tile spanning 2x2. */
+
+.lookbook {
+    background: var(--paper);
+}
+
+.look-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.look-item {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bone-2);
+    cursor: zoom-in;
+}
+
+.look-item:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.look-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s var(--ease);
+}
+
+.look-item:hover img {
+    transform: scale(1.06);
+}
+
+/* red frame + index number on hover */
+.look-item::after {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(255, 255, 255, 0.6);
+    border: 3px solid transparent;
+    transition: border-color var(--dur) var(--ease);
+    pointer-events: none;
 }
 
-.parallax-text {
+.look-item:hover::after,
+.look-item:focus-visible::after {
+    border-color: var(--signal);
+}
+
+.look-item .look-no {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--paper);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.look-item:hover .look-no,
+.look-item:focus-visible .look-no {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (hover: none) {
+    .look-item .look-no {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .look-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .look-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+}
+
+
+/*------lightbox------*/
+
+.lb {
+    position: fixed;
+    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1080;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 5vw, 3rem);
+    background: rgba(10, 10, 10, 0.96);
+}
+
+.lb.is-open {
+    display: flex;
+}
+
+.lb img {
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border: 3px solid var(--paper);
+}
+
+.lb-btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: var(--paper);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.lb-btn:hover {
+    background: var(--signal);
+    border-color: var(--signal);
+}
+
+.lb-close {
+    top: clamp(1rem, 4vw, 2rem);
+    right: clamp(1rem, 4vw, 2rem);
+}
+
+.lb-prev {
+    left: clamp(0.5rem, 3vw, 2rem);
+}
+
+.lb-next {
+    right: clamp(0.5rem, 3vw, 2rem);
+}
+
+.lb-count {
+    position: absolute;
+    bottom: clamp(1rem, 4vw, 2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+/*------statement band------*/
+
+.band {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(300px, 44vw, 460px);
+    background: url("../images/parallax.jpg") no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+}
+
+.band::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(10, 10, 10, 0.72);
+}
+
+.band-in {
     position: relative;
     z-index: 1;
-    width: 100%;
-    padding: 0 20px;
     text-align: center;
-    font-size: 25px;
-    text-transform: uppercase;
-    color: rgb(0, 0, 0);
-    font-family: Teko;
+    padding: 0 var(--gutter);
 }
 
-/* Most mobile browsers don't support fixed attachment and render it as a
-   jittery, badly-cropped image. */
-@media screen and (max-width: 991px) {
-    .parallax {
+.band-in h2 {
+    margin: 0.75rem 0 0;
+    font-size: clamp(2rem, 7vw, 4.5rem);
+    font-weight: 700;
+    color: var(--paper);
+}
+
+.band-in p {
+    max-width: 46ch;
+    margin: 1.25rem auto 0;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+/* fixed attachment is unsupported/janky on most mobile browsers */
+@media (max-width: 991px) {
+    .band {
         background-attachment: scroll;
     }
 }
 
 
-/*------testimonial------*/
+/*------testimonials------*/
 
-.testimonial {
-    width: 1170px;
-    margin: 0 auto;
-    font-family: Teko;
-}
-
-.testimonial h1,
-.testimonial h2 {
-    text-align: center;
-    padding-top: 20px;
-    /* These were h1s and are now h2s for a sane document outline; the size is
-       pinned so the demotion doesn't shrink them. */
-    font-size: 2.5rem;
-}
-
-.img-area {
-    width: 100px;
-    height: 100px;
-    display: block;
-    overflow: hidden;
-    border-radius: 50%;
-    margin: 0 auto;
-}
-
-.img-area img {
-    width: 100%;
+.reviews {
+    background: var(--bone);
+    border-top: 2px solid var(--ink);
 }
 
 .testi {
-    background-color: rgba(255, 255, 255, 0);
-    padding: 10%;
-    text-align: center;
+    padding: 0;
+    height: 100%;
+}
+
+/* Room for the card's lifted shadow, which the stage would otherwise clip. */
+.testimonial-carousel .owl-stage-outer {
+    padding: 8px 8px 20px;
+    margin: -8px -8px -20px;
 }
 
 .single-testi {
-    background-color: rgb(255, 255, 255);
-    padding: 10%;
-    text-align: center;
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    box-shadow: 0 2px 26px rgba(10, 10, 10, 0.11);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 
-.img-text h2 {
+.single-testi:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(10, 10, 10, 0.19);
+}
+
+.stars {
+    color: var(--signal);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    margin: 0 0 1rem;
+}
+
+.quote {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--ink-2);
+}
+
+.who {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 1.6rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--line);
+}
+
+.who img {
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.who h3 {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.who span {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--body);
+    font-size: 0.72rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--muted);
+}
+
+
+/*------newsletter------*/
+
+.signup {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: clamp(3.5rem, 8vw, 6rem) 0;
+}
+
+.signup h2 {
+    margin: 0.9rem 0 0;
+    font-size: clamp(2.2rem, 7vw, 4.2rem);
+    font-weight: 700;
+    color: var(--paper);
+}
+
+.signup > .wrap > p {
+    max-width: 44ch;
+    margin: 1rem auto 2.25rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.signup form {
+    display: flex;
+    gap: 0;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.signup input {
+    flex: 1;
+    min-width: 0;
+    padding: 1rem 1.2rem;
+    font-family: var(--body);
+    font-size: 0.92rem;
+    color: var(--paper);
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-right: 0;
+    border-radius: 0;
+    transition: border-color var(--dur) var(--ease);
+}
+
+.signup input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.signup input:focus {
+    outline: none;
+    border-color: var(--paper);
+}
+
+.signup button {
+    flex-shrink: 0;
+    padding: 1rem 1.9rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    margin: 20px 0 -15px;
-    color: rgb(0, 0, 0);
+    color: var(--ink);
+    background: var(--paper);
+    border: 2px solid var(--paper);
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
-.img-text i {
-    color: rgb(0, 0, 0);
+.signup button:hover {
+    background: var(--signal);
+    border-color: var(--signal);
+    color: var(--paper);
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .testimonial {
-        width: 90%;
+.signup .fineprint {
+    margin: 1.5rem 0 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 520px) {
+    .signup form {
+        flex-direction: column;
+        gap: 0.6rem;
     }
-}
 
-@media only screen and (max-width: 767px) {
-    .testimonial {
-        width: 90%;
+    .signup input {
+        border-right: 2px solid rgba(255, 255, 255, 0.35);
     }
-}
-
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-    .testimonial {
-        width: 90%;
-    }
-}
-
-
-/*------sender------*/
-
-.sender-sub-main {
-    text-align: center;
-    font-family: Teko;
 }

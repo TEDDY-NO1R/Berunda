@@ -1,0 +1,8 @@
+# Netlify redirects.
+# The blog and the standalone gallery page were removed and men.html was split
+# into mens.html / womens.html, so old links keep working instead of 404ing.
+
+/men.html             /mens.html        301
+/gallery.html         /#lookbook        301
+/blog.html            /                 301
+/not-found-page.html  /404.html         301

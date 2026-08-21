@@ -1,7 +1,7 @@
 /*
  * Berunda cart — floating button, drawer and localStorage persistence.
  *
- * Vanilla JS on purpose: this runs on every page including not-found-page.html,
+ * Vanilla JS on purpose: this runs on every page including 404.html,
  * which loads no jQuery or Bootstrap.
  *
  * Products opt in by putting data-cart-add on a button, alongside
@@ -103,7 +103,7 @@
 
         listEl = el('ul', { 'class': 'cart-list' });
         emptyEl = el('p', { 'class': 'cart-empty' },
-            'Your cart is empty.<br><a href="men.html">Browse the shop</a>');
+            'Your cart is empty.<br><a href="mens.html">Browse the shop</a>');
 
         footEl = el('div', { 'class': 'cart-foot' });
         totalEl = el('div', { 'class': 'cart-total' }, '');

@@ -1,148 +1,298 @@
-a:hover,
-a:focus {
-    text-decoration: none;
-    outline: none;
+/* ==========================================================================
+   BERUNDA — product cards
+   Two layouts share one card:
+     .products-carousel  → owl slider, used on the home page only. One product
+                           fills the screen on mobile, which is the point of it.
+     .products-grid      → plain CSS grid, used on the category pages where
+                           shoppers need to see everything at once.
+   Depends on style.css for tokens.
+   ========================================================================== */
+
+
+/*------section wrapper------*/
+
+.products {
+    width: 100%;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: var(--section-y) var(--gutter);
+}
+
+
+/*------card------*/
+
+.product {
+    padding: 0;
 }
 
 .box {
-    width: 100%;
-    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 2px 26px rgba(10, 10, 10, 0.11);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(10, 10, 10, 0.19);
 }
 
 .slide-img {
-    height: 450px;
     position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bone-2);
 }
 
 .slide-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    box-sizing: border-box;
+    display: block;
+    transition: transform 0.9s var(--ease);
 }
+
+.box:hover .slide-img img {
+    transform: scale(1.07);
+}
+
+/* corner flag */
+.slide-img .flag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    padding: 0.32rem 0.72rem;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--signal);
+    border-radius: 999px;
+}
+
+
+/*------hover overlay------*/
+
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 10, 10, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--dur) var(--ease), visibility var(--dur) var(--ease);
+}
+
+.box:hover .overlay,
+.box:focus-within .overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.buy-btn {
+    padding: 0.85rem 1.9rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--paper);
+    border: 2px solid var(--paper);
+    border-radius: 999px;
+    transform: translateY(10px);
+    transition: transform var(--dur) var(--ease), background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.box:hover .buy-btn {
+    transform: translateY(0);
+}
+
+.buy-btn:hover {
+    background: var(--signal);
+    border-color: var(--signal);
+    color: var(--paper);
+}
+
+/* Touch screens never fire hover, so the overlay would hide the CTA forever.
+   Keyed off the input type, not a breakpoint, so tablets are covered too. */
+@media (hover: none) {
+    .overlay {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        background: transparent;
+        padding: 0.9rem 0.9rem 0;
+    }
+
+    .buy-btn {
+        width: 100%;
+        transform: none;
+        color: var(--paper);
+        background: var(--ink);
+        border-color: var(--ink);
+    }
+}
+
+
+/*------detail row------*/
 
 .detail-box {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 5px 20px;
-    box-sizing: border-box;
-}
-
-.detail-box a {
-    color: #000000;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    padding-right: 8px;
-    font-size: 20px;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.15rem;
+    margin-top: auto;
+    border-top: 1px solid var(--line-soft);
 }
 
 .type {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.type a {
+    font-family: var(--body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+}
+
+.type a:hover {
+    color: var(--signal);
 }
 
 .type span {
-    color: rgba(26, 26, 26, 0.5);
-    text-align: left;
+    margin-top: 0.25rem;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
 }
 
 .price {
-    color: #000000;
+    flex-shrink: 0;
+    font-family: var(--display);
+    font-size: 1.6rem;
     font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
+    line-height: 1;
+    color: var(--ink);
 }
 
-.overlay {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.price:hover {
+    color: var(--signal);
+}
+
+
+/*------grid layout (category pages)------*/
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+@media (max-width: 600px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 0.85rem;
+    }
+
+    .type a {
+        font-size: 0.78rem;
+    }
+
+    .price {
+        font-size: 1.3rem;
+    }
+}
+
+
+/*------owl chrome------*/
+
+/* The slider needs breathing room for the card's hover shadow, which would
+   otherwise be clipped by the stage's overflow. */
+.products-carousel .owl-stage-outer {
+    padding: 6px 6px 18px;
+    margin: -6px -6px -18px;
+}
+
+.owl-carousel .owl-item {
+    display: flex;
+}
+
+.owl-carousel .owl-item > .product {
     width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.buy-btn {
-    width: 160px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #FFFFFF;
-    color: #252525;
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next {
+    color: var(--ink) !important;
+    font-size: 1.6rem !important;
+    transition: color var(--dur) var(--ease);
+}
+
+.owl-carousel .owl-nav button:hover {
+    color: var(--signal) !important;
+    background: transparent !important;
+}
+
+.owl-theme .owl-dots {
+    margin-top: 1.75rem !important;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+    width: 30px;
+    height: 3px;
+    margin: 5px 4px;
+    border-radius: 0;
+    background: var(--line);
+    transition: background-color var(--dur) var(--ease);
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+    background: var(--signal);
+}
+
+/* Hint that the row scrolls — mobile shows one card at a time by design. */
+.swipe-hint {
+    display: none;
+    margin: 1rem 0 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
     font-weight: 700;
-    letter-spacing: 1px;
-    border-radius: 20px;
-    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
-}
-
-.buy-btn:hover {
-    color: #FFFFFF;
-    background-color: #000000;
-    transition: all ease 0.3s;
-}
-
-.overlay {
-    visibility: hidden;
-}
-
-.slide-img:hover .overlay {
-    visibility: visible;
-    animation: fade 0.5s;
-}
-
-@keyframes fade {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-.products {
-    width: 1170px;
-    margin: 0 auto;
-    font-family: Teko;
-}
-
-.products h1,
-.products h2 {
-    text-align: center;
-    padding-top: 20px;
-    /* These were h1s and are now h2s for a sane document outline; the size is
-       pinned so the demotion doesn't shrink them. */
-    font-size: 2.5rem;
-}
-
-.product {
-    background-color: rgba(255, 255, 255, 0);
-    padding: 10%;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
     text-align: center;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .products {
-        width: 90%;
-    }
+.swipe-hint i {
+    color: var(--signal);
 }
 
-@media only screen and (max-width: 767px) {
-    .products {
-        width: 90%;
-    }
-}
-
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-    .products {
-        width: 90%;
+@media (max-width: 600px) {
+    .swipe-hint {
+        display: block;
     }
 }
